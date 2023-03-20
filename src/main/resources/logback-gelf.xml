@@ -1,0 +1,24 @@
+<configuration debug="true">
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+	<appender name="GELF" class="de.siegmar.logbackgelf.GelfUdpAppender">
+		<graylogHost>${GRAYLOG_HOST}</graylogHost>
+		<graylogPort>${GRAYLOG_PORT}</graylogPort>
+		<encoder class="de.siegmar.logbackgelf.GelfEncoder">
+			<staticField>application_name:${APPLICATION_NAME:-eis-pond}</staticField>
+			<staticField>component_name:${COMPONENT_NAME:-pond-applied-service}</staticField>
+		</encoder>
+	</appender>
+
+	<!-- Use AsyncAppender to prevent slowdowns -->
+	<appender name="ASYNC GELF" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="GELF"/>
+	</appender>
+
+	<root level="info">
+		<appender-ref ref="ASYNC GELF"/>
+		<appender-ref ref="CONSOLE"/>
+	</root>
+
+</configuration>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<QueryResult xmlns="urn://x-artefacts-smev-gov-ru/services/service-adapter/types"
+             xmlns:ns2="urn://x-artefacts-smev-gov-ru/services/service-adapter/types/faults">
+    <smevMetadata>
+        <MessageId>c42aa379-1f72-48d9-b2a3-d1e79497f52f</MessageId>
+        <Sender>MNSV03</Sender>
+        <Recipient>FNOT01_3S</Recipient>
+        <SendingDate>2023-02-21T10:23:22.456Z</SendingDate>
+    </smevMetadata>
+    <Message xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RequestMessageType">
+        <RequestMetadata>
+            <clientId>b5434335-db71-4c79-b683-cf98a577b55f
+            </clientId><!--Сохраняем этот clientId для установки его в ответ -->
+            <linkedGroupIdentity>
+                <refClientId>b5434335-db71-4c79-b683-cf98a577b55f</refClientId>
+            </linkedGroupIdentity>
+            <testMessage>false</testMessage>
+        </RequestMetadata>
+        <RequestContent>
+            <content>
+                <MessagePrimaryContent>
+                    <tns:FormPONDRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                         xmlns:tns="urn://x-artefacts-fciit-ru/pond-epgu/1.0.0">
+                        <tns:orderId>1000021</tns:orderId>
+                        <tns:Department>нет_данных</tns:Department>
+                        <tns:ServiceCode>нет_данных</tns:ServiceCode>
+                        <tns:TargetCode>нет_данных</tns:TargetCode>
+                        <tns:StatementDate>01-03-2023</tns:StatementDate>
+                        <tns:probateCaseQuery>
+                            <tns:FamilyName>Иванов</tns:FamilyName>
+                            <tns:FirstName>Алан</tns:FirstName>
+                            <tns:Patronymic>Викторович</tns:Patronymic>
+                            <tns:birthDate>26-05-1978</tns:birthDate>
+                            <tns:deathDate>11-02-2023</tns:deathDate>
+                        </tns:probateCaseQuery>
+                    </tns:FormPONDRequest>
+                </MessagePrimaryContent>
+            </content>
+        </RequestContent>
+    </Message>
+</QueryResult>

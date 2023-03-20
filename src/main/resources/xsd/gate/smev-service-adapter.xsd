@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="urn://x-artefacts-smev-gov-ru/services/service-adapter"
+           elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+    <xs:import namespace="urn://x-artefacts-smev-gov-ru/services/service-adapter/types"
+               schemaLocation="smev-service-adapter-types.xsd"/>
+
+    <xs:import namespace="urn://x-artefacts-smev-gov-ru/services/service-adapter/types/faults"
+               schemaLocation="smev-service-adapter-faults.xsd"/>
+
+</xs:schema>

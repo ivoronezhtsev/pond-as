@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: APP_NAME
+spec:
+  selector:
+    matchLabels:
+      app: APP_NAME
+  template:
+    metadata:
+      labels:
+        name: APP_NAME
+        app: APP_NAME
+    spec:
+      volumes:
+        - name: app-secret
+          secret:
+            secretName: APP_NAME-secret
+        - name: app-config
+          configMap:
+            name: APP_NAME-config
+      containers:
+        - name: APP_NAME
+          image: FCIIT_REGISTRY_PROXY/APP_GROUP/APP_NAME:IMAGETAG
+          volumeMounts:
+            - name: app-config
+              mountPath: /app/config
+            - name: app-secret
+              mountPath: /app/secret
+          env:
+            - name: APP_ARGS
+              value: --spring.config.additional-location=/app/config/application.properties,/app/secret/application.secret.properties
+            - name: PROFILES
+              value: glog
+
+

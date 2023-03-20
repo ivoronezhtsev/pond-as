@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn://x-artefacts-fciit-ru/pond-epgu/1.0.0" targetNamespace="urn://x-artefacts-fciit-ru/pond-epgu/1.0.0" elementFormDefault="qualified">
+	<xs:simpleType name="string3">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string4">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="4"/>
+			<xs:maxLength value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string8">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="8"/>
+			<xs:maxLength value="8"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string1-20">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String1-50">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="String1-100">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DateType">
+		<xs:annotation>
+			<xs:documentation>Тип Дата в формате ГГГГ-ММ-ДД (2100-01-01 - 1900-01-01)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date">
+			<xs:minInclusive value="1900-01-01"/>
+			<xs:maxInclusive value="2100-01-01"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:group name="FioGroup">
+		<xs:annotation>
+			<xs:documentation>ФИО наследодателя</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FamilyName" type="tns:String1-100">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstName" type="tns:String1-100">
+				<xs:annotation>
+					<xs:documentation>Имя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Patronymic" type="tns:String1-100" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Отчество</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="RecordType">
+		<xs:annotation>
+			<xs:documentation>Тип Cостав найденной записи о наследственном деле</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CaseNumber">
+				<xs:annotation>
+					<xs:documentation>Номер наследственого дела</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="tns:String1-50"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CaseDate" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата наследственного дела в формате</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="tns:DateType"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="NotaryID">
+				<xs:annotation>
+					<xs:documentation>Идентификатор нотариуса, который открыл наследственное дело</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="tns:string8">
+						<xs:pattern value="\d{8}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="NotaryIDAct" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор нотариуса, которому передано наследственное дело</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="tns:string8">
+						<xs:pattern value="\d{8}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FormPONDRequestType">
+		<xs:annotation>
+			<xs:documentation>Тип Заявление на поиск информации в реестре наследственных дел</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:sequence>
+				<xs:element name="orderId" type="xs:long">
+					<xs:annotation>
+						<xs:documentation>Номер заявления на ЕПГУ</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Department" type="tns:string1-20">
+					<xs:annotation>
+						<xs:documentation>Код ведомства </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ServiceCode" type="tns:string1-20">
+					<xs:annotation>
+						<xs:documentation>Код услуги</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="TargetCode" type="tns:string1-20">
+					<xs:annotation>
+						<xs:documentation>Код цели</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="StatementDate" type="tns:DateType">
+					<xs:annotation>
+						<xs:documentation>Дата заявления на ЕПГУ</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:element name="probateCaseQuery" type="tns:probateCaseQueryType">
+				<xs:annotation>
+					<xs:documentation>Сведения о наследодателе</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FormPONDResponseType">
+		<xs:annotation>
+			<xs:documentation>Тип Ответ на запрос сведений</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="orderId" type="xs:long">
+				<xs:annotation>
+					<xs:documentation>Номер заявки в ЛК ЕПГ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="probateCaseAnswer" type="tns:probateCaseAnswerType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="probateCaseQueryType">
+		<xs:annotation>
+			<xs:documentation>Тип Сведения о наследодателе</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="tns:FioGroup"/>
+			<xs:element name="birthDate" type="tns:DateType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата рождения наследодателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="deathDate" type="tns:DateType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата смерти наследодателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="probateCaseAnswerType">
+		<xs:annotation>
+			<xs:documentation>Тип ответа с результатами розыска наследственных дел</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="stateCode">
+				<xs:annotation>
+					<xs:documentation>код ошибки обработки запроса</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="tns:string3">
+						<xs:enumeration value="200">
+							<xs:annotation>
+								<xs:documentation>Наследственное дело найдено</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="404">
+							<xs:annotation>
+								<xs:documentation>Наследственное дело не найдено</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="count" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Количество найденных записей</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Records" type="tns:RecordType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Массив найденных записей</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!--элементы-->
+	<xs:element name="FormPONDRequest" type="tns:FormPONDRequestType">
+		<xs:annotation>
+			<xs:documentation>Запрос на розыск наследственного дела</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="FormPONDResponse" type="tns:FormPONDResponseType">
+		<xs:annotation>
+			<xs:documentation>Ответ с результатами розыска наследственных дел</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>
